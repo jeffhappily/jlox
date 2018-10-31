@@ -101,14 +101,7 @@ class Scanner {
                 while (peek() != '\n' && !isAtEnd())
                     advance();
             } else if (match('*')) {
-                while (peek() != '*' && peekNext() != '/' && !isAtEnd()) {
-                    if (peek() == '\n')
-                        line++;
-                    advance();
-                }
-                // Skip last 2 characters
-                advance();
-                advance();
+                blockComment();
             } else {
                 addToken(SLASH);
             }
@@ -185,6 +178,17 @@ class Scanner {
         // Trim the surrounding quotes.
         String value = source.substring(start + 1, current - 1);
         addToken(STRING, value);
+    }
+
+    private void blockComment() {
+        while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
+            if (peek() == '\n')
+                line++;
+            advance();
+        }
+        // Skip last 2 characters
+        advance();
+        advance();
     }
 
     private boolean match(char expected) {

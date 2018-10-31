@@ -4,4 +4,7 @@
 jeff = "handsome" // assignment statement
 /*
     This is a block comment
+    /*
+        This is a nested block comment
+    */
 */ 123
