@@ -4,9 +4,8 @@
 
 BUILD_DIR := build
 DIR := src/main/java
-PACKAGE := lox
 
-SOURCES := $(wildcard $(DIR)/my/$(PACKAGE)/*.java)
+SOURCES := $(wildcard $(DIR)/my/*/*.java)
 CLASSES := $(addprefix $(BUILD_DIR)/, $(SOURCES:.java=.class))
 
 JAVA_OPTIONS := -Werror
