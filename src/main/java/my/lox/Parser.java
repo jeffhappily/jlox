@@ -11,4 +11,8 @@ class Parser {
     Parser(List<Token> tokens) {
         this.tokens = tokens;
     }
+
+    private Expr expression() {
+        return equality();
+    }
 }
