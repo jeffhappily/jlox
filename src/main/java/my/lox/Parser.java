@@ -40,6 +40,30 @@ class Parser {
         return expr;
     }
 
+    private Expr addition() {
+        Expr expr = multiplication();
+
+        while (match(MINUS, PLUS)) {
+            Token operator = previous();
+            Expr right = multiplication();
+            expr = new Expr.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
+    private Expr multiplication() {
+        Expr expr = unary();
+
+        while (match(SLASH, STAR)) {
+            Token operator = previous();
+            Expr right = unary();
+            expr = new Expr.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
     private boolean match(TokenType... types) {
         for (TokenType type : types) {
             if (check(type)) {
