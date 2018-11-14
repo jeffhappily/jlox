@@ -32,6 +32,10 @@ class Interpreter implements Expr.Visitor<Object> {
         Object right = evaluate(expr.right);
 
         switch (expr.operator.type) {
+        case BANG_EQUAL:
+            return !isEqual(left, right);
+        case EQUAL_EQUAL:
+            return isEqual(left, right);
         case GREATER:
             return (double) left > (double) right;
         case GREATER_EQUAL:
@@ -66,6 +70,16 @@ class Interpreter implements Expr.Visitor<Object> {
         if (object instanceof Boolean)
             return (boolean) object;
         return true;
+    }
+
+    private boolean isEqual(Object a, Object b) {
+        // nil is only equal to nil.
+        if (a == null && b == null)
+            return true;
+        if (a == null)
+            return false;
+
+        return a.equals(b);
     }
 
     private Object evaluate(Expr expr) {
