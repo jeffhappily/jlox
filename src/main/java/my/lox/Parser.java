@@ -29,6 +29,13 @@ class Parser {
         return comma();
     }
 
+    private Stmt statement() {
+        if (match(PRINT))
+            return printStatement();
+
+        return expressionStatement();
+    }
+
     private Expr comma() {
         Expr expr = ternary();
 
