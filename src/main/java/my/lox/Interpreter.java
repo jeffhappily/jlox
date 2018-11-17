@@ -1,6 +1,6 @@
 package my.lox;
 
-class Interpreter implements Expr.Visitor<Object> {
+class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     void interpret(Expr expression) {
         try {
             Object value = evaluate(expression);
