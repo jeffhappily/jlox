@@ -26,7 +26,7 @@ class Parser {
     }
 
     private Expr expression() {
-        return comma();
+        return ternary();
     }
 
     private Stmt declaration() {
@@ -70,18 +70,6 @@ class Parser {
         Expr expr = expression();
         consume(SEMICOLON, "Expect ';' after expression.");
         return new Stmt.Expression(expr);
-    }
-
-    private Expr comma() {
-        Expr expr = ternary();
-
-        while (match(COMMA)) {
-            Token operator = previous();
-            Expr right = ternary();
-            expr = new Expr.Binary(expr, operator, right);
-        }
-
-        return expr;
     }
 
     private Expr ternary() {
